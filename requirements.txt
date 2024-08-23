@@ -1,0 +1,6 @@
+streamlit
+requests
+black
+pylint
+boto3
+aws-xray-sdk
