@@ -11,11 +11,11 @@ This is the current architecture of the environment.
 
 #### Build your Docker image:
 ```bash
-docker build -t thomasliddledba/weather-app .
+docker build -t $cat(.dockerimage) .
 ```
 #### Tag and push the image to DockerHub or Amazon ECR:
 ```bash
-docker push thomasliddledba/weather-app:latest
+docker push $(cat.dockerimage)
 ```
 ## Deploy the CloudFormation Template:
 ### Use the AWS Management Console or AWS CLI to deploy the ecs_weather_app.yaml template:
@@ -47,8 +47,3 @@ Run the following command to get the URL:
 ```bash
 aws cloudformation describe-stacks --query "Stacks[?StackName=='PecNetAppStack'][].Outputs[?OutputKey=='ALBEndpoint'].OutputValue" --output text
 ```
-
-
-
-
-aws cloudformation create-stack --stack-name PcNetCICDStack --template-body file://infra/cicd.yaml --capabilities CAPABILITY_IAM --capabilities CAPABILITY_NAMED_IAM --parameters ParameterKey=GitHubRepoName,ParameterValue=$(cat .githubreponame) ParameterKey=GitHubBranchName,ParameterValue=$(cat .githubbranchname) ParameterKey=GitHubToken,ParameterValue=$(cat .githubtoken)

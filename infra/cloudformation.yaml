@@ -225,6 +225,7 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
         - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
+        - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
       Policies:
         - PolicyName: SSMParameterStoreAccess
           PolicyDocument:
@@ -240,8 +241,7 @@ Resources:
                       - 'ssm'
                       - !Join ['', [':', !Ref AWS::Region]]
                       - !Join ['', [':', !Ref AWS::AccountId]]
-                      - ':parameter/'
-                      - !Ref ParameterKey
+                      - ':parameter/PecNet*'
       Tags:
         - Key: App
           Value: PecNet
