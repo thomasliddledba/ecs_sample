@@ -150,7 +150,6 @@ Resources:
           - DEPLOYMENT_FAILURE
       DeploymentStyle:
         DeploymentType: BLUE_GREEN
-        ServiceRoleArn: !GetAtt CodeDeployRole.Arn
       ECSService:
         ClusterName: PecNetCluster
         ServiceName: PecNetService
