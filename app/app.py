@@ -56,6 +56,18 @@ def save_selected_partner(connection, partner_id):
     xray_recorder.end_subsegment()
 
 
+# Function to query and display selected partners
+def get_selected_partners(connection):
+    cursor = connection.cursor()
+    query = """
+    SELECT sp.ID, cp.ChannelPartnerName 
+    FROM SelectedPartners sp
+    JOIN ChannelPartners cp ON sp.ChannelPartnerID = cp.ChannelPartnerID
+    """
+    cursor.execute(query)
+    return cursor.fetchall()
+
+
 def get_api_key():
     """
     Retrieves the SSM Paramenter Store value for the API Key
@@ -108,11 +120,21 @@ def main():
         save_selected_partner(connection, selected_partner_id)
         st.success(f"Partner '{selected_partner_name}' saved successfully!")
 
+    st.header("Saved Channel Partners")
+
+    # Display saved channel partners
+    selected_partners = get_selected_partners(connection)
+    if selected_partners:
+        st.write("Here are the partners that have been selected so far:")
+        for partner in selected_partners:
+            st.write(f"ID: {partner[0]}, Partner: {partner[1]}")
+    else:
+        st.write("No partners have been selected yet.")
+
     # Close the connection
     connection.close()
 
     st.title("Get Weather from OpenWeather.org")
-    st.markdown("""---""")
     city_zip_code = st.text_input("Enter a city:")
     if st.button("Get Weather"):
 
