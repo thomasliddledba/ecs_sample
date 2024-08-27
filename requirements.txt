@@ -4,3 +4,4 @@ black
 pylint
 boto3
 aws-xray-sdk
+mysql-connector-python
